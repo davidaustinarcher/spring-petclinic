@@ -30,7 +30,6 @@ public class AttackThread extends Thread {
     /* Scan settings */
     private String baseUrl;
     private String address;
-    private List<String> lessons;
     private int scanDuration;
     private long requestDelay;
 	private boolean verbose;
@@ -42,12 +41,12 @@ public class AttackThread extends Thread {
 	private double lowest;
 	
     public AttackThread() {
-    	int port = 8080;
+    	int port = 9080;
     	address = getRandomAddress();
         baseUrl = "http://localhost:" + port;
         this.requestDelay = 1000;
         this.scanDuration = 1000;
-        this.verbose = true;
+        this.verbose = false;
         
         this.highest = -1;
         this.lowest = -1;
@@ -211,6 +210,17 @@ public class AttackThread extends Thread {
         List<NameValuePair> fields = new ArrayList<NameValuePair>();
         int formStart = content.indexOf( "<form" );
         int formStop = content.indexOf( "</form>" );
+        
+//        int formTagStop = content.indexOf( ">", formStart );
+//        String formtag = content.substring( formStart, formTagStop );
+//        System.out.println( "FORMTAG: " + formtag );
+//        int targetidx = formtag.indexOf( "action" );
+//        if ( targetidx != -1 ) {
+//        	int targetend = formtag.indexOf( " " )
+//	        String target = ;
+//	        fields.add( new BasicNameValuePair( "target", target ) );
+//        }
+      
         if ( formStart != -1 && formStop != -1 ) {
             String formContent = content.substring( formStart, formStop );
             String[] tags = formContent.split( ">");
