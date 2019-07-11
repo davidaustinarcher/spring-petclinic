@@ -18,6 +18,7 @@
 
         <!-- Generic properties -->
         <java.version>1.8</java.version>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -153,7 +154,35 @@
 
     <build>
         <plugins>
-
+            <plugin>
+                <groupId>com.contrastsecurity</groupId>
+                <artifactId>contrast-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>install-contrast-jar</id>
+                        <goals>
+                            <goal>install</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>verify-with-contrast</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <username>${contrastUsername}</username>
+                    <apiKey>${contrastApiKey}</apiKey>
+                    <serviceKey>${contrastServiceKey}</serviceKey>
+                    <apiUrl>${contrastApiUrl}</apiUrl>
+                    <orgUuid>${contrastOrgUuid}</orgUuid>
+                    <appName>spring-petclinic</appName>
+                    <serverName>${contrastServerName}</serverName>
+                    <minSeverity>Medium</minSeverity>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -161,11 +190,6 @@
                     <!-- Verify security and coverage during normal use -->
                     <jvmArguments>
                         -javaagent:${project.basedir}/contrast.jar
-                        -Dcontrast.dir=${project.basedir}/working
-                        -Dcontrast.log.daily=true
-                        -Dcontrast.override.appname=spring-petclinic
-                        -Dcontrast.server=DEV-193
-                        -Dcontrast.env=development
                     </jvmArguments>
                 </configuration>
                 <executions>
@@ -192,7 +216,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <!-- Verify security and coverage during automated tests. -->
-                    <argLine>
+                    <!--<argLine>
                         -javaagent:${project.basedir}/jacocoagent.jar=destfile=${project.basedir}/target/jacoco.exec
                         -javaagent:${project.basedir}/contrast.jar
                         -Dcontrast.dir=${project.basedir}/working
@@ -203,7 +227,7 @@
                         -Dcontrast.override.appversion=spring-petclinic-${BUILD_NUMBER}
                         -Dcontrast.server=TEST-882
                         -Dcontrast.env=qa
-                    </argLine>
+                    </argLine>-->
                 </configuration>
             </plugin>
 

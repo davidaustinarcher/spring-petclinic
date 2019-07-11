@@ -9,3 +9,5 @@ _site/
 /working/
 /bin/
 /pom.maven
+contrast_agent.log
+mvn_settings.xml
