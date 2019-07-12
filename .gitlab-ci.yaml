@@ -1,0 +1,15 @@
+image: maven:latest
+
+stages:
+  - test
+  - verify
+
+run_tests:
+  stage: test
+  script:
+    - mvn -DcontrastUsername=$contrastUsername -DcontrastApiUrl=$DcontrastApiUrl -DcontrastApiKey=$contrastApiKey -DcontrastServiceKey=$DcontrastServiceKey -DcontrastOrgUuid=$contrastOrgUuid -DcontrastServerName=gitlab package
+
+contrast_verify:
+  stage: verify
+  script:
+    - mvn -DcontrastUsername=$contrastUsername -DcontrastApiUrl=$DcontrastApiUrl -DcontrastApiKey=$contrastApiKey -DcontrastServiceKey=$DcontrastServiceKey -DcontrastOrgUuid=$contrastOrgUuid -DcontrastServerName=gitlab verify
