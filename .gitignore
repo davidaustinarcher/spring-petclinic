@@ -11,3 +11,5 @@ _site/
 /pom.maven
 contrast_agent.log
 mvn_settings.xml
+gradle
+build.gradle
