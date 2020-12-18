@@ -191,7 +191,11 @@
                 <configuration>
                     <!-- Verify security and coverage during normal use -->
                     <jvmArguments>
-                        -javaagent:${project.basedir}/contrast.jar
+                        -javaagent:${project.basedir}/target/contrast.jar
+                        -Dcontrast.standalone.appname=spring-petclinic
+                        -Dcontrast.env=development
+                        -Dcontrast.application.session_metadata="branchName=${git.branch},committer=${git.commit.user.name},commitHash=${git.commit.id.abbrev}"
+                        -Dcontrast.dir=contrast
                     </jvmArguments>
                 </configuration>
                 <executions>
